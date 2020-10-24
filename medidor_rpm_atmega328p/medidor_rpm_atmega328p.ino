@@ -10,8 +10,8 @@ LiquidCrystal_I2C lcd(0x27,16,2); // configuraciones degun el fabricante 0x3F , 
 volatile int contador = 0;   // Variable entera que se almacena en la RAM del Micro
  
 void setup() {
-  //Serial.begin(57600);
-  attachInterrupt(1,interrupcion0,RISING);  // Interrupcion 1 (pin1) // LOW, CHANGE, RISING, FALLING
+  Serial.begin(57600);
+  attachInterrupt(0,interrupcion0,RISING);  // Interrupcion 1 (pin1) // LOW, CHANGE, RISING, FALLING
   lcd.init();
   lcd.home();
   lcd.backlight();
@@ -25,7 +25,9 @@ void loop() {
   lcd.clear();
   lcd.setCursor(0,0);
   lcd.print(contador*60); // Como son dos interrupciones por vuelta (contador * (60/2))
-  lcd.println(" RPM");    //  El numero 2 depende del numero aspas de la helise del motor en prueba
+  lcd.print(" RPM            ");    //  El numero 2 depende del numero aspas de la helise del motor en prueba
+  Serial.print(contador*60); // Como son dos interrupciones por vuelta (contador * (60/2))
+  Serial.println(" RPM            "); 
   contador = 0;
 }
  
